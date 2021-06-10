@@ -63,6 +63,7 @@ const useStyles = makeStyles(theme => ({
 const HomePage = props => {
   const classes = useStyles();
   const { is_loaded, events, requestEvents } = props;
+  const eventPerPage = 5;
 
   const [pageNum, setPageNum] = useState(1);
 
@@ -91,7 +92,7 @@ const HomePage = props => {
           <div className={classes.eventContainer}>
             <EventList
               events={events.filter(
-                val => val.id <= 10 * pageNum && val.id > 10 * (pageNum - 1)
+                val => val.id <= eventPerPage * pageNum && val.id > eventPerPage * (pageNum - 1)
               )}
             />
             <ReactPaginate
@@ -99,7 +100,7 @@ const HomePage = props => {
               nextLabel={"next"}
               breakLabel={"..."}
               breakClassName={"break-me"}
-              pageCount={Math.floor(events.length / 10) + 1}
+              pageCount={Math.floor(events.length / eventPerPage) + 1}
               marginPagesDisplayed={2}
               pageRangeDisplayed={5}
               onPageChange={handlePageClick}

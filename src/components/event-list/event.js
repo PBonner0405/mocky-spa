@@ -2,19 +2,22 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
-import Grid from "@material-ui/core/Grid";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import Collapse from "@material-ui/core/Collapse";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+
+import {
+  Card,
+  CardActions,
+  CardContent,
+  Grid,
+  Button,
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  Collapse,
+  ListItemAvatar
+} from "@material-ui/core";
+
+import { ExpandLess, ExpandMore } from "@material-ui/icons";
 import Avatar from "@material-ui/core/Avatar";
 
 import { eventAction } from "../../redux/actions";
@@ -22,18 +25,18 @@ import { eventAction } from "../../redux/actions";
 const useStyles = makeStyles({
   container: {
     flex: 1,
-    marginBottom: '6px',
-    cursor: 'pointer',
+    marginBottom: "6px",
+    cursor: "pointer",
 
-    '& :hover': {
-      background: '#d9ccfba0',
+    "& :hover": {
+      background: "#d9ccfba0"
     }
   },
   selected: {
     flex: 1,
-    marginBottom: '6px',
-    background: '#ccd9fb',
-    cursor: 'pointer'
+    marginBottom: "6px",
+    background: "#ccd9fb",
+    cursor: "pointer"
   }
 });
 
@@ -44,13 +47,13 @@ const Event = ({ payload, changeEntry }) => {
   const [viewTournament, setViewTournament] = useState(false);
   const [viewprizePools, setViewprizePools] = useState(false);
 
-  const onClickCard = (e) => {
+  const onClickCard = e => {
     e.stopPropagation();
     changeEntry(payload.eventID);
-  }
+  };
 
   return (
-    <Card className={payload.is_entry ? classes.selected :classes.container}>
+    <Card className={payload.is_entry ? classes.selected : classes.container}>
       <CardContent>
         <Grid container justify="space-between">
           <Grid item>
@@ -125,11 +128,15 @@ const Event = ({ payload, changeEntry }) => {
             <List component="div" disablePadding>
               <ListItem className={classes.nested}>
                 <ListItemText primary="Winnings PrizePool Amount: " />
-                <ListItemText primary={payload.prizePools.winningsPrizePoolAmount} />
+                <ListItemText
+                  primary={payload.prizePools.winningsPrizePoolAmount}
+                />
               </ListItem>
               <ListItem className={classes.nested}>
                 <ListItemText primary="Bonus PrizePool Amount: " />
-                <ListItemText primary={payload.prizePools.bonusPrizePoolAmount} />
+                <ListItemText
+                  primary={payload.prizePools.bonusPrizePoolAmount}
+                />
               </ListItem>
             </List>
           </Collapse>
@@ -147,13 +154,18 @@ const Event = ({ payload, changeEntry }) => {
             </Typography>
           </Grid>
         </Grid>
-
       </CardContent>
-      <CardActions onClick = {onClickCard}>
-        <Button size="medium" color="primary" onClick={(e) => {e.preventDefault(); e.stopPropagation(); changeEntry(payload.eventID)}}>
-          {
-            payload.is_entry ? 'Remove from Entries' : 'Add to Entries'
-          }
+      <CardActions onClick={onClickCard}>
+        <Button
+          size="medium"
+          color="primary"
+          onClick={e => {
+            e.preventDefault();
+            e.stopPropagation();
+            changeEntry(payload.eventID);
+          }}
+        >
+          {payload.is_entry ? "Remove from Entries" : "Add to Entries"}
         </Button>
       </CardActions>
     </Card>
@@ -168,4 +180,4 @@ const actionCreators = {
   changeEntry: eventAction.changeEntry
 };
 
-export default connect(null ,actionCreators)(Event);
+export default connect(null, actionCreators)(Event);
