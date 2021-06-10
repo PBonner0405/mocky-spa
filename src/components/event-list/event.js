@@ -20,9 +20,20 @@ import Avatar from "@material-ui/core/Avatar";
 import { eventAction } from "../../redux/actions";
 
 const useStyles = makeStyles({
-  root: {
+  container: {
     flex: 1,
-    marginBottom: '6px'
+    marginBottom: '6px',
+    cursor: 'pointer',
+
+    '& :hover': {
+      background: '#d9ccfba0',
+    }
+  },
+  selected: {
+    flex: 1,
+    marginBottom: '6px',
+    background: '#ccd9fb',
+    cursor: 'pointer'
   }
 });
 
@@ -33,8 +44,13 @@ const Event = ({ payload, changeEntry }) => {
   const [viewTournament, setViewTournament] = useState(false);
   const [viewprizePools, setViewprizePools] = useState(false);
 
+  const onClickCard = (e) => {
+    e.stopPropagation();
+    changeEntry(payload.eventID);
+  }
+
   return (
-    <Card className={classes.root}>
+    <Card className={payload.is_entry ? classes.selected :classes.container}>
       <CardContent>
         <Grid container justify="space-between">
           <Grid item>
@@ -133,8 +149,8 @@ const Event = ({ payload, changeEntry }) => {
         </Grid>
 
       </CardContent>
-      <CardActions>
-        <Button size="medium" color="primary" onClick={() => changeEntry(payload.eventID)}>
+      <CardActions onClick = {onClickCard}>
+        <Button size="medium" color="primary" onClick={(e) => {e.preventDefault(); e.stopPropagation(); changeEntry(payload.eventID)}}>
           {
             payload.is_entry ? 'Remove from Entries' : 'Add to Entries'
           }
