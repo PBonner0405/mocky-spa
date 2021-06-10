@@ -15,7 +15,48 @@ const useStyles = makeStyles(theme => ({
     flex: 1
   },
   pagination: {
-    background: '#f00'
+    background: "#24c2f1",
+    display: "flex",
+    flexDirection: "row",
+    borderRadius: "2px",
+    color: "white",
+    minHeight: "36px",
+    justifyContent: "center",
+    alignItems: "center",
+    listStyleType: "none",
+
+    "& li": {
+      display: "flex",
+      fontSize: "16px",
+      cursor: "pointer",
+      height: "32px",
+      width: "32px",
+      alignItems: "center",
+      justifyContent: "center",
+      margin: "4px"
+    },
+
+    "& li:hover": {
+      color: "#0879da",
+      fontWeight: "bold",
+      border: "2px solid #086077"
+    },
+
+    "& li.active": {
+      color: "#0879da",
+      borderRadius: " 50%",
+      fontWeight: "bold",
+      border: "2px solid #086077"
+    },
+
+    "& li.disabled": {
+      color: "#000",
+      cursor: 'not-allowed'
+    },
+
+    "&li > a": {
+      padding: "0 8px"
+    }
   }
 }));
 
@@ -29,9 +70,9 @@ const HomePage = props => {
     requestEvents();
   }, []);
 
-  const handlePageClick = (data) => {
+  const handlePageClick = data => {
     setPageNum(data.selected + 1);
-  }
+  };
 
   return (
     <>
@@ -48,7 +89,11 @@ const HomePage = props => {
           </div>
         ) : (
           <div className={classes.eventContainer}>
-            <EventList events = {events.filter((val) => val.id <= 10*pageNum && val.id > 10*(pageNum - 1))} />
+            <EventList
+              events={events.filter(
+                val => val.id <= 10 * pageNum && val.id > 10 * (pageNum - 1)
+              )}
+            />
             <ReactPaginate
               previousLabel={"prev"}
               nextLabel={"next"}

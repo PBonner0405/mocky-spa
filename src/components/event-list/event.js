@@ -10,22 +10,24 @@ import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345
+    flex: 1
   }
 });
 
 const Event = ({ is_selected, payload }) => {
   const classes = useStyles();
 
+  const tempImgURL = 'https://www.pinclipart.com/picdir/middle/460-4608361_album-svg-png-icon-free-download-album-foto.png';
+
   return (
     <Card className={classes.root}>
       <CardActionArea>
         <CardMedia
           component="img"
-          alt="Contemplative Reptile"
-          height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
-          title="Contemplative Reptile"
+          alt={payload.sport.name}
+          height="100"
+          image={payload.sport.imageUrl !== '' ? payload.sport.imageUrl : tempImgURL}
+          title={payload.sport.name}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
