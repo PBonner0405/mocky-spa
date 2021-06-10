@@ -13,6 +13,18 @@ export function event(state = initialState, action) {
                 events: action.events,
                 is_loaded: true
             }
+        case eventConsts.ON_ENTRY_CHANGE:
+            return {
+                ...state,
+                events: state.events.map((val) => {
+                    if(val.eventID === action.evtID) {
+                        return {
+                            ...val,
+                            is_entry: !val.is_entry
+                        }
+                    } else return {...val}
+                })
+            }
         default:
             return state;
     }

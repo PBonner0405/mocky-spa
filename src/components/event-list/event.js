@@ -1,22 +1,23 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import Grid from "@material-ui/core/Grid";
-import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-import StarBorder from "@material-ui/icons/StarBorder";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
+
+import { eventAction } from "../../redux/actions";
 
 const useStyles = makeStyles({
   root: {
@@ -25,7 +26,7 @@ const useStyles = makeStyles({
   }
 });
 
-const Event = ({ is_selected, payload }) => {
+const Event = ({ payload, changeEntry }) => {
   const classes = useStyles();
 
   const [viewSport, setViewSport] = useState(false);
@@ -35,7 +36,7 @@ const Event = ({ is_selected, payload }) => {
   return (
     <Card className={classes.root}>
       <CardContent>
-        <Grid container justify="space-between" xs={12}>
+        <Grid container justify="space-between">
           <Grid item>
             <Typography gutterBottom variant="h5" component="h2">
               {payload.name}
@@ -118,17 +119,37 @@ const Event = ({ is_selected, payload }) => {
           </Collapse>
         </List>
 
+        <Grid container justify="space-between">
+          <Grid item>
+            <Typography gutterBottom variant="subtitle1" component="h2">
+              Go Live At: {payload.goLiveAt}
+            </Typography>
+          </Grid>
+          <Grid item>
+            <Typography gutterBottom variant="subtitle1" component="h3">
+              Match Series: {payload.matchSeries}
+            </Typography>
+          </Grid>
+        </Grid>
+
       </CardContent>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
+        <Button size="medium" color="primary" onClick={() => changeEntry(payload.eventID)}>
+          {
+            payload.is_entry ? 'Remove from Entries' : 'Add to Entries'
+          }
         </Button>
       </CardActions>
     </Card>
   );
 };
 
-export default Event;
+Event.propTypes = {
+  changeEntry: PropTypes.func.isRequired
+};
+
+const actionCreators = {
+  changeEntry: eventAction.changeEntry
+};
+
+export default connect(null ,actionCreators)(Event);

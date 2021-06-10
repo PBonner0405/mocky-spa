@@ -8,7 +8,7 @@ const EventList = (props) => {
     return <div>
         {
             events.map((data) => {
-                return <Event key = { data.eventID } is_selected = {false} payload = {data} />
+                return <Event key = { data.eventID } payload = {data} />
             })
         }
     </div>

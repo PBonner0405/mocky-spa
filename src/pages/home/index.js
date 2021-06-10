@@ -68,7 +68,7 @@ const HomePage = props => {
 
   useEffect(() => {
     requestEvents();
-  }, []);
+  }, [requestEvents]);
 
   const handlePageClick = data => {
     setPageNum(data.selected + 1);
@@ -108,7 +108,6 @@ const HomePage = props => {
             />
           </div>
         )}
-        {pageNum}
       </DefaultLayout>
     </>
   );
@@ -123,7 +122,7 @@ HomePage.propTypes = {
   requestEvents: PropTypes.func.isRequired
 };
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
   return {
     is_loaded: state.event.is_loaded,
     events: state.event.events

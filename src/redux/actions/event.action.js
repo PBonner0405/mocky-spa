@@ -15,6 +15,7 @@ const requestEvents = () => {
             events: events.map((val, ind) => {
                 return {
                     id: ind + 1,
+                    is_entry: false,
                     ...val
                 }
             })
@@ -43,8 +44,21 @@ const requestEvents = () => {
 
 }
 
+const changeEntry = (_evtID) => {
+    function request(evtID) {
+        return {
+            type: eventConsts.ON_ENTRY_CHANGE, evtID
+        }
+    }
+
+    return dispatch => {
+        dispatch(request(_evtID));
+    }
+}
+
 const eventActions = {
-    requestEvents
+    requestEvents,
+    changeEntry
 };
 
 export default eventActions;
