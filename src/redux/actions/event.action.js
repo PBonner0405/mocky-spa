@@ -1,6 +1,7 @@
-import { eventConsts } from '../../consts';
+import { eventConsts, statusConsts } from '../../consts';
+import { getEntries } from '../../service';
 
-const onEventRequested = () => {
+const requestEvents = () => {
     
     function request() {
         return {
@@ -10,21 +11,35 @@ const onEventRequested = () => {
 
     function success(events) {
         return {
-            type: eventConsts.ON_EVENT_LOADED,
-            events
+            type: eventConsts.ON_EVENT_RECEIVED,
+            events: [...events]
         };
     }
 
-    return dispatch => {
+    function failed() {
+        return {
+            type: eventConsts.ON_EVENT_LOAD_FAILED
+        }
+    }
+
+    return async dispatch => {
         dispatch(request());
 
         // Make API Call to get Events
+        const response = await getEntries();
+
+        if(response.status === statusConsts.SUCCESS ) {
+            dispatch(success(response.data));
+        } else {
+            dispatch(failed());
+        }
+
     }
 
 }
 
-export const eventActions = {
-    onEventRequested
+const eventActions = {
+    requestEvents
 };
 
-export default eventAction;
+export default eventActions;

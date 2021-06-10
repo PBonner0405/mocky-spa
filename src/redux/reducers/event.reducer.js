@@ -5,12 +5,12 @@ const initialState = {
     is_loaded: false,
 };
 
-export function bills(state = initialState, action) {
+export function event(state = initialState, action) {
 
     switch(action.type) {
-        case eventConsts.ON_EVENT_LOADED:
+        case eventConsts.ON_EVENT_RECEIVED:
             return {
-                ...state,
+                events: action.events,
                 is_loaded: true
             }
         default:
@@ -18,4 +18,4 @@ export function bills(state = initialState, action) {
     }
 }
 
-export default bills;
+export default event;
