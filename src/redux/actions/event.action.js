@@ -12,7 +12,12 @@ const requestEvents = () => {
     function success(events) {
         return {
             type: eventConsts.ON_EVENT_RECEIVED,
-            events: [...events]
+            events: events.map((val, ind) => {
+                return {
+                    id: ind + 1,
+                    ...val
+                }
+            })
         };
     }
 
