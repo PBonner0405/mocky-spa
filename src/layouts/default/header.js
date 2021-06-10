@@ -28,6 +28,12 @@ const Header = ({ events }) => {
         <Typography variant="h6" className={classes.heading}>
           {events.filter(val => val.is_entry).length}
         </Typography>
+
+        <Typography variant="h6" className={classes.heading}>
+          <a href='/about'>
+            About 
+          </a>
+        </Typography>
       </Toolbar>
     </AppBar>
   );

@@ -63,7 +63,7 @@ const useStyles = makeStyles(theme => ({
 const HomePage = props => {
   const classes = useStyles();
   const { is_loaded, events, requestEvents } = props;
-  const eventPerPage = 5;
+  const eventPerPage = 10;
 
   const [pageNum, setPageNum] = useState(1);
 
